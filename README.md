@@ -69,6 +69,45 @@ set_output_delay and then gets all the parameters and convert into Opentimer for
 
 ### Creating scripts for Opentimer
 
+if {$enable_prelayout_timing == 1} {
+
+puts "\nInfo: enable prelayout_timing is $enable_prelayout_timing. Enabling zero-wire load parasitics"
+
+	set spef_file [open $OutputDirectory/$DesignName.spef w]
+
+	puts $spef_file "*SPEF \"IEEE 1481-1998\""
+
+	puts $spef_file "*DESIGN \"$DesignName\""
+
+	puts $spef_file "*DATE \"Sun Jun 11 11:59:00 2023\""
+
+	puts $spef_file "*VENDOR \"VLSI System Design\""
+
+	puts $spef_file "*PROGRAM \"TCL Workshop\""
+
+	puts $spef_file "*DATE \"0.0\""
+ 	puts $spef_file "*DESIGN FLOW \"NETLIST_TYPE_VERILOG\""
+
+	puts $spef_file "*DIVIDER /"
+
+	puts $spef_file "*DELIMITER : "
+
+	puts $spef_file "*BUS_DELIMITER [ ]"
+
+	puts $spef_file "*T_UNIT 1 PS"
+
+	puts $spef_file "*C_UNIT 1 FF"
+
+	puts $spef_file "*R_UNIT 1 KOHM"
+
+	puts $spef_file "*L_UNIT 1 UH"
+
+}
+
+close $spef_file
+
+
+
 ### Quality of results (QOR) generation algorithm
 
 This is the final sub-task which involves output generation as a datasheet.
@@ -78,6 +117,23 @@ Executes the Opentimer tool by passing openMSP430.conf file as an input the resu
 The above script can be used to show the results in Horizontal format like shown in below figure.
 
 ![8](https://github.com/user-attachments/assets/9e4377d2-0271-4da2-a25e-1871a88c79fa)
+
+
+
+#### FEW COMMANDS TO EXECUTE IN UNIX PLATFORM
+##### Opening  tcl file
+
+/Desktop/vsdflow $  vim vsdsynth.tcl  
+##### Running csv file
+
+/Desktop/vsdflow $ ./vsdsynth openMSP430_design_details.csv            		 
+##### Removing  directory
+/Desktop/vsdflow $ rm   –rf  outdir_openMSP430                                   
+##### Opening csv file using libreoffice 
+/Desktop/vsdflow $ libreoffice  openMSP430_design_details.csv &       	         
+##### Opening csv file using libreoffice 
+/Desktop/vsdflow $ libreoffice  openMSP430_design_Constraints.csv &              ;
+
 
 
 
